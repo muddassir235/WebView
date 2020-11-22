@@ -38,6 +38,7 @@
             android:maxLines="1"
             android:singleLine="true"
             android:layout_height="match_parent"
+            android:imeOptions="actionGo"
             android:layout_weight="1"/>
         <ImageButton
             android:padding="10dp"

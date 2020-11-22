@@ -2,13 +2,13 @@ package com.muddassir.myapplication
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
-import android.webkit.URLUtil
+import android.view.inputmethod.EditorInfo
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.main.activity_main.*
@@ -64,15 +64,23 @@ class MainActivity : AppCompatActivity(), UrlLoadListener {
 
             refreshForwardBackButtons()
         }
+
+        urlInputEt.setOnEditorActionListener { textView, i, keyEvent ->
+            if(i == EditorInfo.IME_ACTION_GO) {
+                goOrRefreshIB.performClick()
+            }
+            false
+        }
     }
 
     fun formatUrl(url: String): String {
         var formattedUrl = url
 
-        if(!formattedUrl.startsWith("www.") && !formattedUrl.startsWith("http://")){
+        if(!formattedUrl.startsWith("www.") && !formattedUrl.startsWith("http://")
+            && !formattedUrl.startsWith("https://")){
             formattedUrl = "www." + formattedUrl;
         }
-        if(!formattedUrl.startsWith("http://")){
+        if(!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")){
             formattedUrl = "http://"+formattedUrl;
         }
 
